@@ -157,13 +157,36 @@ if not ctrl.save('only_mode_controlled.png'):
     print(ctrl)
 
 #Simulate Mealy Machine:
-sim_hor = 130
+# strip_ports(mealy, env_sws.atomic_propositions)
+
+sim_hor = 10
 N=1 # N = number of steps between each sampled transition
 # mach = synth.determinize_machine_init(ctrl,{'sys_actions':'on'})
-(s1, dum) = ctrl.reaction('Sinit', {'eloc': 's0'})
-#(s1, dum) = mach.reaction(s1, {'on': 1}) # - possible different way to give input?
-for sim_time in range(sim_hor):
-    sysnow=('regular',dum['sys_actions'])
 
-    (s1, dum) = mach.reaction(s1, {'env_actions': 'regular'})
+(s1, dum) = ctrl.reaction('Sinit', {'eloc': 's0', 'park':1, 'home':1, 'lot': 0})
+
+for sim_time in range(sim_hor):
+
+	print dum['sys_actions']
+
+	eloc = raw_input('Enter next state: ')
+	park = input('is park on? 1: yes/0: no ')
+	
+	if eloc in ['s0']:
+		h=1 
+		l=0
+	else:
+		if eloc in ['s5']:
+			h=0
+			l=1
+		else:
+			h=0
+			l=0
+	(s1, dum) = ctrl.reaction(s1, {'eloc': eloc, 'park':park, 'home':h, 'lot': l})
+
+#(s1, dum) = mach.reaction(s1, {'on': 1}) # - possible different way to give input?
+#for sim_time in range(sim_hor):
+ #   sysnow=('regular',dum['sys_actions'])
+
+  #  (s1, dum) = mach.reaction(s1, {'env_actions': 'regular'})
 
