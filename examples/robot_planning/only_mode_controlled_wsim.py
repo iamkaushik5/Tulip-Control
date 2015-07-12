@@ -18,6 +18,7 @@
 #
 
 from tulip import spec, synth, transys
+from tulip.transys.machines import strip_ports
 import numpy as np
 from scipy import sparse as sp
 
@@ -157,13 +158,16 @@ if not ctrl.save('only_mode_controlled.png'):
     print(ctrl)
 
 #Simulate Mealy Machine:
-# strip_ports(mealy, env_sws.atomic_propositions)
+
+strip_ports(ctrl, env_sws.atomic_propositions)
 
 sim_hor = 10
 N=1 # N = number of steps between each sampled transition
 # mach = synth.determinize_machine_init(ctrl,{'sys_actions':'on'})
 
-(s1, dum) = ctrl.reaction('Sinit', {'eloc': 's0', 'park':1, 'home':1, 'lot': 0})
+(s1, dum) = ctrl.reaction('Sinit', {'eloc': 's0', 'park':1})
+
+#, 'home':1, 'lot': 0})
 
 for sim_time in range(sim_hor):
 
