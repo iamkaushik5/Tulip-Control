@@ -38,6 +38,7 @@ import warnings
 from tulip import transys
 from tulip.spec import GRSpec
 from tulip.interfaces import jtlv, gr1c
+import networkx as nx
 
 # slugs is an optional dependency, so fail cleanly if it is missing.
 try:
@@ -1108,6 +1109,13 @@ def synthesize(
     else:
         raise Exception('Undefined synthesis option. ' +
                         'Current options are "jtlv", "gr1c", and "slugs"')
+    # check if a strategy is found before converting to Mealy
+    if not isinstance(strategy,nx.DiGraph):
+        msg = (
+            'The spec is unrealizable.\n'
+            'The controller is set to None.')
+        warnings.warn(msg)
+        return None
     ctrl = strategy2mealy(strategy, specs)
     try:
         logger.debug('Mealy machine has: n = ' +
