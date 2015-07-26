@@ -1,0 +1,81 @@
+ccopy_reg
+_reconstructor
+p0
+(ctulip.spec.form
+GRSpec
+p1
+c__builtin__
+object
+p2
+Ntp3
+Rp4
+(dp5
+S'sys_init'
+p6
+(lp7
+S'tempGood'
+p8
+asS'output_variables'
+p9
+(dp10
+S'trackfl'
+p11
+(I0
+I3
+tp12
+ssS'sys_safety'
+p13
+(lp14
+S'(trackfl=0) -> X ((trackfl=0) || !(level=0))'
+p15
+aS'(trackfl=1) -> X ((trackfl=1) || !(level=1))'
+p16
+aS'(trackfl=2) -> tempCold'
+p17
+aS'(trackfl=1) -> tempGood'
+p18
+aS'(trackfl=2) -> X ((trackfl=2) || !(level=2))'
+p19
+aS'(trackfl=0) -> tempHot'
+p20
+asS'sys_vars'
+p21
+g10
+sS'input_variables'
+p22
+(dp23
+S'level'
+p24
+(I0
+I2
+tp25
+ssS'env_vars'
+p26
+g23
+sS'env_prog'
+p27
+(lp28
+sS'sys_prog'
+p29
+(lp30
+S'(trackfl=0) || !(level=0)'
+p31
+aS'noHXfreeze'
+p32
+aS'(trackfl=2) || !(level=2)'
+p33
+aS'(trackfl=1) || !(level=1)'
+p34
+asS'env_safety'
+p35
+(lp36
+sS'formula'
+p37
+S'((level=1)) -> ((tempGood) && []((trackfl=0) -> X ((trackfl=0) || !(level=0))) && []((trackfl=1) -> X ((trackfl=1) || !(level=1))) && []((trackfl=2) -> tempCold) && []((trackfl=1) -> tempGood) && []((trackfl=2) -> X ((trackfl=2) || !(level=2))) && []((trackfl=0) -> tempHot) && []<>((trackfl=0) || !(level=0)) && []<>(noHXfreeze) && []<>((trackfl=2) || !(level=2)) && []<>((trackfl=1) || !(level=1)))'
+p38
+sS'env_init'
+p39
+(lp40
+S'level=1'
+p41
+asb.

@@ -204,15 +204,20 @@ abstMOS=ds.discretize_modeonlyswitched(ssd=ssd,cont_props=cont_props, owner=owne
                                 N=1,abs_tol=1e-7)
 print abstMOS
 
-env_vars = set() #{'off','on','heat','cool'}
-env_init = set()                # empty set
-env_prog = set()
-env_safe = set()
-cnt=0;
-safe = ''
 
-env_safe = set()
-prog=set()
+import pickle as pl
+pl.dump(abstMOS,open("abstMOS.p","wb"))
+
+
+#env_vars = set() #{'off','on','heat','cool'}
+#env_init = set()                # empty set
+#env_prog = set()
+#env_safe = set()
+#cnt=0;
+#safe = ''
+
+#env_safe = set()
+#prog=set()
 
 """ Creates a set of environment progress assumptions based on 
 !<>[](~eq_pnti & modei) == []<>(eq_pnti or !modei). 
@@ -237,7 +242,7 @@ Is it required? - My guess - not yet.
 #     # sp+=x[1]
 #     # sp+=')'
 #     prog|={sp}
-env_prog=prog
+#env_prog=prog
 
 """ Assumption/prog - !<>[](~eq_pnti & modei) == []<>(eq_pnti or !modei)
 # Are there stable & unstable eq pnts? - In this example - yes. Should there be? - Don't know.
@@ -245,24 +250,24 @@ env_prog=prog
 
 """
 # System variables and requirements
-sys_vars=set()
+#sys_vars=set()
 
-sys_init = set()            
-sys_prog = {'LOW','HIGH'}
-sys_safe = {'!OUTSIDE'}
-specs = spec.GRSpec(env_vars, sys_vars, env_init, sys_init,
-                    env_safe, sys_safe, env_prog, sys_prog)
+#sys_init = set()            
+#sys_prog = {'LOW','HIGH'}
+#sys_safe = {'!OUTSIDE'}
+#specs = spec.GRSpec(env_vars, sys_vars, env_init, sys_init,
+                    #env_safe, sys_safe, env_prog, sys_prog)
 
 
 
-specs = _spec_plus_sys(
-        specs, env=abstMOS.ts, sys=None,
-        ignore_env_init=False,
-        ignore_sys_init=False,
-        bool_states=False,
-        bool_actions=False)
+#specs = _spec_plus_sys(
+     #   specs, env=abstMOS.ts, sys=None,
+    #    ignore_env_init=False,
+   #     ignore_sys_init=False,
+  #      bool_states=False,
+ #       bool_actions=False)
 
-strategy = jtlv.synthesize(specs)
+#strategy = jtlv.synthesize(specs)
 
 
 
